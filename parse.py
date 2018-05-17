@@ -5,7 +5,7 @@ import glob
 Ron = "Ron"
 Weasley = "Weasley"
 
-# main swapping function
+# main
 def swap(character):
 
     # collect casings of first name
