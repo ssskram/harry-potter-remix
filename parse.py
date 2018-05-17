@@ -6,36 +6,38 @@ import glob
 master_f = "Ron"
 master_l = "Weasley"
 
-## refactor
-# for each book
-#   for each row in scv
-#       
-
-# main method
-def parse (first, middle, last):
-    os.chdir("/home/ssskram/other_repos/potter_remix/books/")
-    for file in glob.glob("*.txt"):
-        if first is not None:
-            inplace_change( filename = file, old_string = first, new_string = master_f )
-        if middle is not None:
-            inplace_change( filename = file, old_string = middle, new_string = "" )
-        if last is not None:
-            inplace_change( filename = file, old_string = last, new_string = master_l )
-    return
-
-def inplace_change(filename, old_string, new_string):
-    with open(filename) as f:
-        s = f.read()
-        if old_string not in s:
-            return
-
-    with open(filename, 'w') as f:
-        s = s.replace(old_string, new_string)
-        f.write(s)
-
-# now get each character, and pass back to main
-ch = open("characters.csv", "rb")
+# get characters
+ch = open("characters1.csv")
 reader = csv.reader(ch)
-for row in reader:
-    parse( first = row[0], middle = row[1], last = row[2])
 
+# test
+def test(line, row):
+    print(line)
+    print(row[0])
+
+# swap function
+def swapIt(line):
+    for row in reader:   
+        test(line, row)
+
+# do it
+os.chdir("/home/ssskram/other_repos/potter_remix/books/")
+for file in glob.glob("*.txt"):
+    with open(file, 'rb') as f:
+        for line in f:
+            print(line)
+            swapIt(line)
+
+    # with open("out.txt", "wt") as fout:
+    # if row[0] is not None:
+    #     old = row[0]
+    #     print(old)
+    #     # fout.write(line.replace(row[0], master_f))
+    # if row[1] is not None:
+    #     old = row[1]
+    #     print(old)
+    #     # fout.write(line.replace(row[1], ''))
+    # if row[2] is not None:
+    #     old = row[2]
+    #     print(old)
+    #     # fout.write(line.replace(row[1], master_l))
