@@ -9,35 +9,24 @@ master_l = "Weasley"
 # get characters
 ch = open("characters1.csv")
 reader = csv.reader(ch)
-
-# test
-def test(line, row):
-    print(line)
-    print(row[0])
-
-# swap function
-def swapIt(line):
-    for row in reader:   
-        test(line, row)
+characters = []
+for row in reader:
+    characters.append(row)
+ch.close()
 
 # do it
 os.chdir("/home/ssskram/other_repos/potter_remix/books/")
 for file in glob.glob("*.txt"):
-    with open(file, 'rb') as f:
+    with open(file) as f:
         for line in f:
-            print(line)
-            swapIt(line)
-
-    # with open("out.txt", "wt") as fout:
-    # if row[0] is not None:
-    #     old = row[0]
-    #     print(old)
-    #     # fout.write(line.replace(row[0], master_f))
-    # if row[1] is not None:
-    #     old = row[1]
-    #     print(old)
-    #     # fout.write(line.replace(row[1], ''))
-    # if row[2] is not None:
-    #     old = row[2]
-    #     print(old)
-    #     # fout.write(line.replace(row[1], master_l))
+            for i in characters:   
+                with open("out.txt", "wt") as fout:
+                    if i[0] != "":
+                        old = i[0]
+                        fout.write(line.replace(old, master_f))
+                    if i[1] != "":
+                        old = i[1]
+                        fout.write(line.replace(old, ''))
+                    if i[2] != "":
+                        old = i[2]
+                        fout.write(line.replace(old, master_l))
