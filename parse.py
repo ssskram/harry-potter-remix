@@ -1,32 +1,72 @@
 import csv
 import os
-import sys
 import glob
 
-master_f = "Ron"
-master_l = "Weasley"
+Ron = "Ron"
+Weasley = "Weasley"
+
+# main swapping function
+def swap(character):
+
+    # collect casings of first name
+    fc = []
+    fc.append(character[0])
+    fc.append(character[0].upper())
+
+    # ..of middle name
+    mc = []
+    mc.append(character[1])
+    mc.append(character[1].upper())
+
+    # ..of last name
+    lc = []
+    lc.append(character[2])
+    lc.append(character[2].upper())
+
+    # for each book
+    for file in glob.glob("*.txt"):
+
+        # swap first names
+        for c in fc:
+            if c != '':
+                with open(file) as fin:
+                    new = fin.read().replace(c, Ron)
+                with open(file, "w") as fout:
+                    fout.write(new)
+                fin.close()
+                fout.close()
+
+        # swap middle names
+        for c in mc:
+            if c != '':
+                with open(file) as fin:
+                    new = fin.read().replace(c, '')
+                with open(file, "w") as fout:
+                    fout.write(new)
+                fin.close()
+                fout.close()
+
+        # swap last names
+        for c in lc:
+            if c != '':
+                with open(file) as fin:
+                    new = fin.read().replace(c, Weasley)
+                with open(file, "w") as fout:
+                    fout.write(new)
+                fin.close()
+                fout.close()
 
 # get characters
-ch = open("characters1.csv")
+ch = open("characters.csv")
 reader = csv.reader(ch)
 characters = []
 for row in reader:
     characters.append(row)
 ch.close()
 
-# do it
+# navigate to books
 os.chdir("/home/ssskram/other_repos/potter_remix/books/")
-for file in glob.glob("*.txt"):
-    with open(file) as f:
-        for line in f:
-            for i in characters:   
-                with open("out.txt", "wt") as fout:
-                    if i[0] != "":
-                        old = i[0]
-                        fout.write(line.replace(old, master_f))
-                    if i[1] != "":
-                        old = i[1]
-                        fout.write(line.replace(old, ''))
-                    if i[2] != "":
-                        old = i[2]
-                        fout.write(line.replace(old, master_l))
+
+# for each character, pass back to main
+for character in characters:
+    swap(character)
