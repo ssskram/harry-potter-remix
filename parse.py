@@ -70,3 +70,6 @@ os.chdir("/home/ssskram/other_repos/potter_remix/books/")
 # for each character, pass back to main
 for character in characters:
     swap(character)
+    
+## that's right
+## every character just got replaced by Ron Weasley
